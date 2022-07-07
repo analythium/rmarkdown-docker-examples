@@ -2,7 +2,7 @@ FROM eddelbuettel/r2u:20.04 AS builder
 RUN apt-get update && apt-get install -y --no-install-recommends \
     pandoc \
     && rm -rf /var/lib/apt/lists/*
-RUN install.r rmarkdown
+RUN install.r shiny rmarkdown flexdashboard dplyr
 WORKDIR /root
 COPY runtime-static .
 RUN R -e "rmarkdown::render('index.Rmd', output_dir = 'output')"

@@ -9,6 +9,7 @@ RUN install.r shiny rmarkdown flexdashboard dplyr
 RUN addgroup --system app && adduser --system --ingroup app app
 WORKDIR /home/app
 COPY runtime-shinyrmd .
+RUN R -e "rmarkdown::render('index.Rmd')"
 RUN chown app:app -R /home/app
 USER app
 
