@@ -1,5 +1,5 @@
 ---
-title: "Runtime: shinyrmd"
+title: "Runtime: static"
 output: flexdashboard::flex_dashboard
 runtime: static
 ---
@@ -16,7 +16,7 @@ faithful_data <- sample_n(faithful, 100)
 Column {.sidebar}
 -------------------------------------------------------------
 
-This is from <https://rmarkdown.rstudio.com/authoring_shiny_prerendered.HTML>.
+Based on [this](https://rmarkdown.rstudio.com/authoring_shiny_prerendered.HTML) example.
 
 Column
 -------------------------------------------------------------
@@ -24,11 +24,14 @@ Column
 ### Geyser Eruption Duration
 
 ```{r}
-hist(faithful_data$eruptions, probability = TRUE,
-    breaks = 20,
-    xlab = "Duration (minutes)", main = "Geyser Eruption Duration")
-
-dens <- density(faithful_data$eruptions, adjust = 1)
-lines(dens, col = "blue")
+hist(faithful_data$eruptions,
+  probability = TRUE,
+  breaks = 20,
+  xlab = "Duration (minutes)",
+  main = "Geyser Eruption Duration")
+dens <- density(faithful_data$eruptions,
+  adjust = 1)
+lines(dens,
+  col = "blue")
 ```
 
