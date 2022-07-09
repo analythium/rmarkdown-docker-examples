@@ -30,7 +30,7 @@ One option is to render the HTML output locally and copy all these static assets
 
 ```dockerfile
 FROM nginx:alpine
-COPY . /usr/share/nginx/html
+COPY runtime-static /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
