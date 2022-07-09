@@ -1,6 +1,6 @@
 # R Markdown Examples with Docker
 
-This repository is from the blog post [xxx]().
+This repository contains code for the blog post [Containerizing Interactive R Markdown Documents](https://hosting.analythium.io/containerizing-interactive-r-markdown-documents/) from the _Hosting Data Apps_ website -- [hosting.analythium.io](https://hosting.analythium.io/).
 
 ## Runtime: shiny
 
