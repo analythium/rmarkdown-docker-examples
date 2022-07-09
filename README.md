@@ -44,6 +44,26 @@ docker build -f Dockerfile.static -t psolymos/rmd:static .
 docker run -p 8080:80 psolymos/rmd:static
 ```
 
+Another option is to use the static mode of the [of-watchdog](https://github.com/openfaas/of-watchdog) from the [OpenFaaS](https://www.openfaas.com/) project.
+
+> The of-watchdog implements a HTTP server listening on port 8080, and acts as a reverse proxy for running functions and microservices. It can be used independently, or as the entrypoint for a container with OpenFaaS.
+
+```bash
+docker build -f Dockerfile.static2 -t psolymos/rmd:static2 .
+
+docker run -p 8080:8080 psolymos/rmd:static2
+```
+
+Let's compare the image sizes:
+
+```bash
+docker image ls psolymos/rmd --format "{{.Repository}}\t{{.Tag}}\t{{.Size}}"
+# psolymos/rmd    static2     32.7MB
+# psolymos/rmd    static      24.3MB
+# psolymos/rmd    shinyrmd    1.06GB
+# psolymos/rmd    shiny       1.05GB
+```
+
 ## License
 
 MIT License (c) 2022 Analythium Solutions Inc.

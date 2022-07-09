@@ -1,0 +1,23 @@
+FROM eddelbuettel/r2u:20.04 AS builder
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    pandoc \
+    && rm -rf /var/lib/apt/lists/*
+RUN install.r shiny rmarkdown flexdashboard dplyr
+WORKDIR /root
+COPY runtime-static .
+RUN R -e "rmarkdown::render('index.Rmd', output_dir = 'output')"
+
+FROM ghcr.io/openfaas/of-watchdog:0.9.6 AS watchdog
+
+FROM alpine:latest
+RUN addgroup --system app && adduser --system --ingroup app app
+WORKDIR /home/app
+COPY --from=builder /root/output .
+COPY --from=watchdog /fwatchdog ./fwatchdog
+RUN chmod +x /home/app/fwatchdog
+RUN chown app:app -R /home/app
+USER app
+ENV mode="static"
+ENV static_path="/home/app"
+HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
+CMD ["./fwatchdog"]
