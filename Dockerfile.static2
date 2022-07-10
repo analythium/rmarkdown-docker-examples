@@ -10,14 +10,12 @@ RUN R -e "rmarkdown::render('index.Rmd', output_dir = 'output')"
 FROM ghcr.io/openfaas/of-watchdog:0.9.6 AS watchdog
 
 FROM alpine:latest
-RUN addgroup --system app && adduser --system --ingroup app app
-WORKDIR /home/app
-COPY --from=builder /root/output .
-COPY --from=watchdog /fwatchdog ./fwatchdog
-RUN chmod +x /home/app/fwatchdog
-RUN chown app:app -R /home/app
-USER app
+RUN mkdir /app
+COPY --from=builder /root/output /app
+COPY --from=watchdog /fwatchdog .
+RUN chmod +x ./fwatchdog
+RUN pwd
 ENV mode="static"
-ENV static_path="/home/app"
+ENV static_path="/app"
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 CMD ["./fwatchdog"]
