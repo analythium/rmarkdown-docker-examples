@@ -13,8 +13,6 @@ FROM alpine:latest
 RUN mkdir /app
 COPY --from=builder /root/output /app
 COPY --from=watchdog /fwatchdog .
-RUN chmod +x ./fwatchdog
-RUN pwd
 ENV mode="static"
 ENV static_path="/app"
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
