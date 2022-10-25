@@ -10,6 +10,7 @@ RUN addgroup --system app && adduser --system --ingroup app app
 WORKDIR /home/app
 COPY runtime-shinyrmd .
 RUN R -e "rmarkdown::render('index.Rmd')"
+ENV RMARKDOWN_RUN_PRERENDER=0
 RUN chown app:app -R /home/app
 USER app
 
