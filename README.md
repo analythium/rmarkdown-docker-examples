@@ -24,6 +24,14 @@ docker build -f Dockerfile.shinyrmd -t psolymos/rmd:shinyrmd .
 docker run -p 8080:3838 psolymos/rmd:shinyrmd
 ```
 
+The [learnr](https://CRAN.R-project.org/package=learnr) R package is for creating interactive tutorials using R Markdown. It also uses the prerendered Shiny runtime, so here is an [example](https://github.com/rstudio/learnr/blob/main/inst/tutorials/ex-setup-r/ex-setup-r.Rmd):
+
+```bash
+docker build -f Dockerfile.learnr -t psolymos/rmd:learnr .
+
+docker run -p 8080:3838 psolymos/rmd:learnr
+```
+
 ## Runtime: static
 
 One option is to render the HTML output locally and copy all these static assets into an Nginx image:
